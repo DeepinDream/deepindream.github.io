@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Tips: Github about ssh这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。Tips: 本次配置在Windows环境下，使用git bash。Linux下命令基本一致。步骤1. 查看本地是否存在ssh12$ cd ~/.ssh$ ls -al ~/.ssh 2. 生成 ssh key1$ ssh-keygen -t rsa">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git SSH 配置">
+<meta property="og:url" content="http://yoursite.com/2017/07/23/Git SSH 配置/index.html">
+<meta property="og:site_name" content="DeepinDream&#39;s Blog">
+<meta property="og:description" content="Tips: Github about ssh这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。Tips: 本次配置在Windows环境下，使用git bash。Linux下命令基本一致。步骤1. 查看本地是否存在ssh12$ cd ~/.ssh$ ls -al ~/.ssh 2. 生成 ssh key1$ ssh-keygen -t rsa">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-23T09:41:02.561Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git SSH 配置">
+<meta name="twitter:description" content="Tips: Github about ssh这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。Tips: 本次配置在Windows环境下，使用git bash。Linux下命令基本一致。步骤1. 查看本地是否存在ssh12$ cd ~/.ssh$ ls -al ~/.ssh 2. 生成 ssh key1$ ssh-keygen -t rsa">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/23/Git SSH 配置/"/>
+
+
+
+
+
+  <title>Git SSH 配置 | DeepinDream's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DeepinDream's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/23/Git SSH 配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Deepin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DeepinDream's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git SSH 配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-23T17:00:13+08:00">
+                2017-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="Tips-Github-about-ssh"><a href="#Tips-Github-about-ssh" class="headerlink" title="Tips: Github about ssh"></a>Tips: <a href="https://help.github.com/articles/about-ssh/" target="_blank" rel="external">Github about ssh</a></h5><h4 id="这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。"><a href="#这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。" class="headerlink" title="这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。"></a>这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。</h4><h5 id="Tips-本次配置在Windows环境下，使用git-bash。Linux下命令基本一致。"><a href="#Tips-本次配置在Windows环境下，使用git-bash。Linux下命令基本一致。" class="headerlink" title="Tips: 本次配置在Windows环境下，使用git bash。Linux下命令基本一致。"></a>Tips: 本次配置在Windows环境下，使用git bash。Linux下命令基本一致。</h5><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1-查看本地是否存在ssh"><a href="#1-查看本地是否存在ssh" class="headerlink" title="1. 查看本地是否存在ssh"></a>1. 查看本地是否存在ssh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/.ssh</div><div class="line">$ ls -al ~/.ssh</div></pre></td></tr></table></figure>
+<h3 id="2-生成-ssh-key"><a href="#2-生成-ssh-key" class="headerlink" title="2. 生成 ssh key"></a>2. 生成 ssh key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa 4096 -C <span class="string">"your_email@example.com"</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/Hunter/.ssh/id_rsa):</div><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</div><div class="line">Enter same passphrase again:</div><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/Hunter/.ssh/id_rsa.</div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/Hunter/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">SHA256:7KwlOZ4yljBZE2ZJ7dr8QGIyQeiPk49L+01fnC0hAZY your_email@example.com</div><div class="line">The key<span class="string">'s randomart image is:</span></div><div class="line">+---[RSA 4096]----+</div><div class="line">| o...=.          |</div><div class="line">|. . *Eo          |</div><div class="line">|.  + o .         |</div><div class="line">| .o = o..        |</div><div class="line">|  +* B .S.       |</div><div class="line">| ++.. ++o +      |</div><div class="line">| .+o o+o+= .     |</div><div class="line">|....B..*o .      |</div><div class="line">| ooo ++.         |</div><div class="line">+----[SHA256]-----+</div></pre></td></tr></table></figure>
+<h5 id="Tips-双引号内填保存在github段的邮箱"><a href="#Tips-双引号内填保存在github段的邮箱" class="headerlink" title="Tips: 双引号内填保存在github段的邮箱"></a>Tips: 双引号内填保存在github段的邮箱</h5><h3 id="3-将key添加到ssh-agent-很重要"><a href="#3-将key添加到ssh-agent-很重要" class="headerlink" title="3. 将key添加到ssh-agent(很重要)"></a>3. 将key添加到ssh-agent(很重要)</h3><h4 id="先确认ssh-agent是可用的"><a href="#先确认ssh-agent是可用的" class="headerlink" title="先确认ssh-agent是可用的"></a>先确认ssh-agent是可用的</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">eval</span> $(ssh-agent -s)</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Agent pid 13140</div></pre></td></tr></table></figure>
+<h4 id="将ssh-key添加到ssh-agent"><a href="#将ssh-key添加到ssh-agent" class="headerlink" title="将ssh key添加到ssh-agent"></a>将ssh key添加到ssh-agent</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-add ~/.ssh/id_rsa</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Identity added: /c/Users/Hunter/.ssh/id_rsa (/c/Users/Hunter/.ssh/id_rsa)</div></pre></td></tr></table></figure>
+<h3 id="4-将ssh-public-key添加到github"><a href="#4-将ssh-public-key添加到github" class="headerlink" title="4. 将ssh public key添加到github"></a>4. 将ssh public key添加到github</h3><h4 id="复制public-key内容"><a href="#复制public-key内容" class="headerlink" title="复制public key内容"></a>复制public key内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ clip &lt; ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
+<h4 id="登录github-gt-选择Settings-gt-SSH-keys-gt-New-SSH-key"><a href="#登录github-gt-选择Settings-gt-SSH-keys-gt-New-SSH-key" class="headerlink" title="登录github-&gt;选择Settings-&gt;SSH keys-&gt;New SSH key"></a>登录github-&gt;选择Settings-&gt;SSH keys-&gt;New SSH key</h4><h4 id="将public-key内容复制上去，并命名"><a href="#将public-key内容复制上去，并命名" class="headerlink" title="将public key内容复制上去，并命名"></a>将public key内容复制上去，并命名</h4><h3 id="5-测试ssh-key"><a href="#5-测试ssh-key" class="headerlink" title="5. 测试ssh key"></a>5. 测试ssh key</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -t git@github.com</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Warning: Permanently added the RSA host key <span class="keyword">for</span> IP address <span class="string">'192.30.252.128'</span> to the list of known hosts.</div><div class="line">PTY allocation request failed on channel 0</div></pre></td></tr></table></figure>
+<h4 id="配置完毕"><a href="#配置完毕" class="headerlink" title="配置完毕"></a>配置完毕</h4><p>这时就可以进行clone等操作了</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/C++智能指针原理及简单实现/" rel="prev" title="C++智能指针原理及简单实现">
+                C++智能指针原理及简单实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/image/avatar.jpg"
+               alt="Deepin" />
+          <p class="site-author-name" itemprop="name">Deepin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips-Github-about-ssh"><span class="nav-number">1.</span> <span class="nav-text">Tips: Github about ssh</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。"><span class="nav-number"></span> <span class="nav-text">这两天在搭建Github博客，在配置ssh时遇到了一些坑，网上的很少写得齐全，第一篇博客就把这个坑填上吧。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips-本次配置在Windows环境下，使用git-bash。Linux下命令基本一致。"><span class="nav-number">1.</span> <span class="nav-text">Tips: 本次配置在Windows环境下，使用git bash。Linux下命令基本一致。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number"></span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看本地是否存在ssh"><span class="nav-number"></span> <span class="nav-text">1. 查看本地是否存在ssh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-生成-ssh-key"><span class="nav-number"></span> <span class="nav-text">2. 生成 ssh key</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Tips-双引号内填保存在github段的邮箱"><span class="nav-number">1.</span> <span class="nav-text">Tips: 双引号内填保存在github段的邮箱</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-将key添加到ssh-agent-很重要"><span class="nav-number"></span> <span class="nav-text">3. 将key添加到ssh-agent(很重要)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先确认ssh-agent是可用的"><span class="nav-number"></span> <span class="nav-text">先确认ssh-agent是可用的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将ssh-key添加到ssh-agent"><span class="nav-number"></span> <span class="nav-text">将ssh key添加到ssh-agent</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-将ssh-public-key添加到github"><span class="nav-number"></span> <span class="nav-text">4. 将ssh public key添加到github</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制public-key内容"><span class="nav-number"></span> <span class="nav-text">复制public key内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录github-gt-选择Settings-gt-SSH-keys-gt-New-SSH-key"><span class="nav-number"></span> <span class="nav-text">登录github->选择Settings->SSH keys->New SSH key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将public-key内容复制上去，并命名"><span class="nav-number"></span> <span class="nav-text">将public key内容复制上去，并命名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-测试ssh-key"><span class="nav-number"></span> <span class="nav-text">5. 测试ssh key</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置完毕"><span class="nav-number"></span> <span class="nav-text">配置完毕</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Deepin</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
