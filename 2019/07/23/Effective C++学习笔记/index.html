@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 基础部分1.1 条款1： 视C++为一个语言联邦C++语言的四个层次：  C。没有C++的面向对象，没有模板，没有异常，没有重载等。 Object-Oriented C++。也就是C with Classes。classes、封装、继承、多态、虚函数。是面向对象的特性。 Template C++。C++的泛型编程部分, 也就是所谓的模板元编程。 STL。STL是个template程序库。它对">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective C++学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/07/23/Effective C++学习笔记/index.html">
+<meta property="og:site_name" content="DeepinDream&#39;s Blog">
+<meta property="og:description" content="1. 基础部分1.1 条款1： 视C++为一个语言联邦C++语言的四个层次：  C。没有C++的面向对象，没有模板，没有异常，没有重载等。 Object-Oriented C++。也就是C with Classes。classes、封装、继承、多态、虚函数。是面向对象的特性。 Template C++。C++的泛型编程部分, 也就是所谓的模板元编程。 STL。STL是个template程序库。它对">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-19T14:26:29.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Effective C++学习笔记">
+<meta name="twitter:description" content="1. 基础部分1.1 条款1： 视C++为一个语言联邦C++语言的四个层次：  C。没有C++的面向对象，没有模板，没有异常，没有重载等。 Object-Oriented C++。也就是C with Classes。classes、封装、继承、多态、虚函数。是面向对象的特性。 Template C++。C++的泛型编程部分, 也就是所谓的模板元编程。 STL。STL是个template程序库。它对">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/23/Effective C++学习笔记/"/>
+
+
+
+
+
+  <title>Effective C++学习笔记 | DeepinDream's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DeepinDream's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/Effective C++学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Deepin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/image/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DeepinDream's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Effective C++学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-23T22:05:52+08:00">
+                2019-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-基础部分"><a href="#1-基础部分" class="headerlink" title="1. 基础部分"></a>1. 基础部分</h1><h2 id="1-1-条款1：-视C-为一个语言联邦"><a href="#1-1-条款1：-视C-为一个语言联邦" class="headerlink" title="1.1 条款1： 视C++为一个语言联邦"></a>1.1 条款1： 视C++为一个语言联邦</h2><p>C++语言的四个层次：</p>
+<ul>
+<li>C。没有C++的面向对象，没有模板，没有异常，没有重载等。</li>
+<li>Object-Oriented C++。也就是C with Classes。classes、封装、继承、多态、虚函数。是面向对象的特性。</li>
+<li>Template C++。C++的泛型编程部分, 也就是所谓的模板元编程。</li>
+<li>STL。STL是个template程序库。它对容器、迭代器、算法及函数对象的规约，并且是以templates及程序库的方式构建出来。</li>
+</ul>
+<p>每个层次应该有自己的最佳实践。例如对于C层次，传入函数最佳的实践应该是传入值，而不是指针，而对于C with classes层次，则以传递引用为最佳的实践。</p>
+<h2 id="1-2-条款2：尽量以const、enum、inline替换define"><a href="#1-2-条款2：尽量以const、enum、inline替换define" class="headerlink" title="1.2 条款2：尽量以const、enum、inline替换define"></a>1.2 条款2：尽量以const、enum、inline替换define</h2><ul>
+<li>对于全局的值，使用define定义，在预处理的时候会被替换成相应的值。宏是全局的，面向对象程序设计中破坏了封装。因此在C++中尽量避免它！</li>
+</ul>
+<p>由于预处理器会直接替换的原因，宏定义最好用括号括起来。#define函数将会产生出乎意料的结果：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_WITH_MAX(a, b) f((a) &gt; (b) ? (a) : (b))</span></div><div class="line"><span class="keyword">int</span> a = <span class="number">5</span>, b = <span class="number">0</span>;</div><div class="line">CALL_WITH_MAX(++a, b); <span class="comment">//a被累加两次</span></div><div class="line">CALL_WITH_MAX(++a, b+<span class="number">10</span>); <span class="comment">//a被累加一次</span></div></pre></td></tr></table></figure></p>
+<p>可以使用模板函数来替代：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWithMax</span><span class="params">(<span class="keyword">const</span> T &amp;a, <span class="keyword">const</span> T &amp;b)</span></span></div><div class="line">&#123;</div><div class="line">  f(a &gt; b ? a : b);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="1-3-条款3：尽可能使用const"><a href="#1-3-条款3：尽可能使用const" class="headerlink" title="1.3 条款3：尽可能使用const"></a>1.3 条款3：尽可能使用const</h2><p>这是防卫型（defensive）程序设计的原则， 尽量使用const，从而防止客户错误地使用你的代码。也可直观地让客户得知参数不会被修改。</p>
+<p>const与指针的各种用法：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> greeting[] = <span class="string">"Hello"</span>;</div><div class="line"> </div><div class="line"><span class="keyword">char</span> *p = greeting;                    <span class="comment">// non-const pointer, non-const data</span></div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> *p = greeting;              <span class="comment">// non-const pointer, const data</span></div><div class="line"><span class="keyword">char</span> * <span class="keyword">const</span> p = greeting;             <span class="comment">// const pointer, non-const data</span></div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> * <span class="keyword">const</span> p = greeting;       <span class="comment">// const pointer, const data</span></div></pre></td></tr></table></figure></p>
+<h2 id="1-4-条款4：确定对象被使用前已被初始化"><a href="#1-4-条款4：确定对象被使用前已被初始化" class="headerlink" title="1.4 条款4：确定对象被使用前已被初始化"></a>1.4 条款4：确定对象被使用前已被初始化</h2><ul>
+<li>对于内置类型（int，bool，float等），定义的时候一定要初始化，未初始化的值是undefined的。</li>
+<li>对于非内置类型，需要在构造函数对每一个成员进行初始化。</li>
+</ul>
+<p>初始化与赋值是不同的，初始化和赋值对内置类型的成员从效果上没有什么大的区别。对非内置类型成员变量，为了避免两次构造，推荐使用类构造函数初始化列表。const常量则必须在初始化列表中进行初始化：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Student::Student(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; name, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; address)</div><div class="line">    :m_name(name)   <span class="comment">// 初始化，效率高</span></div><div class="line">&#123;</div><div class="line">    m_address = address;    <span class="comment">// 赋值</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="2-构造-析构-赋值运算"><a href="#2-构造-析构-赋值运算" class="headerlink" title="2. 构造/析构/赋值运算"></a>2. 构造/析构/赋值运算</h1><h2 id="2-1-条款5：了解C-默默编写并调用哪些函数"><a href="#2-1-条款5：了解C-默默编写并调用哪些函数" class="headerlink" title="2.1 条款5：了解C++默默编写并调用哪些函数"></a>2.1 条款5：了解C++默默编写并调用哪些函数</h2><ul>
+<li><p>如果没有自己编写构造函数，C++会生成一个不带参数的默认构造函数。</p>
+</li>
+<li><p>在非特殊情况下，C++会自动生成拷贝构造函数、赋值运算符以及析构函数</p>
+</li>
+</ul>
+<p>特殊情况指的是：如果类中有引用类型或者有const类型，此时由于引用类型和const类型不能重新赋值，所以编译器这个时候不会自动生成赋值运算符和拷贝构造函数。</p>
+<p>四大函数的调用时机：</p>
+<blockquote>
+<ul>
+<li>构造函数：对象定义；使用其他兼容的类型初始化对象时（可使用 explicit 来避免这种情况）</li>
+<li>复制构造函数：用一个对象来初始化另一对象时；传入对象参数时；返回对象时；</li>
+<li>析构函数：作用域结束（包括函数返回）时；delete</li>
+<li>=运算符：一个对象赋值给另一对象</li>
+</ul>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Empty e1;               <span class="comment">// 默认构造函数</span></div><div class="line"><span class="function">Empty <span class="title">e2</span><span class="params">(e1)</span></span>;           <span class="comment">// 拷贝构造函数</span></div><div class="line">Empty e3 = e1;          <span class="comment">// 拷贝构造函数</span></div><div class="line">e2 = e1;                <span class="comment">// = 运算符</span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(Empty e)</span></span>&#123;     <span class="comment">// 拷贝构造函数，拷贝一份参数对象</span></div><div class="line">    <span class="keyword">return</span> e;           <span class="comment">// 拷贝构造函数，拷贝一份返回对象</span></div><div class="line">                        <span class="comment">// 析构函数，拷贝得到的参数对象被析构</span></div><div class="line">&#125;</div><div class="line"> </div><div class="line">e2 = func(e1);          <span class="comment">// = 运算符</span></div></pre></td></tr></table></figure>
+<h2 id="2-2-条款6：若不想使用编译器自动生成的函数，就该明确拒绝"><a href="#2-2-条款6：若不想使用编译器自动生成的函数，就该明确拒绝" class="headerlink" title="2.2 条款6：若不想使用编译器自动生成的函数，就该明确拒绝"></a>2.2 条款6：若不想使用编译器自动生成的函数，就该明确拒绝</h2><p>通常在单例中使用会较多，单例不允许发生外部构造、拷贝和=操作。禁用方法是把函数声明为private的，这样，若尝试从外部调用拷贝函数，在编译就会报错。在c++11中，引入了delete关键字，更加严格的限制拷贝函数的生成。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Uncopyable</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">protected</span>:</div><div class="line">    ~Uncopyable() &#123;&#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    Uncopyable() &#123;&#125;</div><div class="line">    Uncopyable(<span class="keyword">const</span> Uncopyable &amp;) = <span class="keyword">delete</span>;</div><div class="line">    Uncopyable &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Uncopyable) = <span class="keyword">delete</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="2-3-条款7：为多态基类声明virtual析构函数"><a href="#2-3-条款7：为多态基类声明virtual析构函数" class="headerlink" title="2.3 条款7：为多态基类声明virtual析构函数"></a>2.3 条款7：为多态基类声明virtual析构函数</h2><p>将基类的析构函数声明为virtual，目的在于基类指针调用析构函数时能够正确地析构子类部分的内存。 否则只会析构基类部分，子类部分的内存将会泄漏。</p>
+<p>这里又可以引申出虚函数表指针的相关知识，参考链接：<a href="https://jocent.me/2017/08/07/virtual-table.html" target="_blank" rel="external">https://jocent.me/2017/08/07/virtual-table.html</a>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="keyword">virtual</span> ~Base();</div><div class="line">    ...</div><div class="line">&#125;;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span>:</span> <span class="keyword">public</span> Base</div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">&#125;;</div><div class="line">Base *p = <span class="keyword">new</span> Derived();</div><div class="line"><span class="keyword">delete</span> p;</div></pre></td></tr></table></figure>
+<h2 id="2-4-条款8：别让异常逃离析构函数"><a href="#2-4-条款8：别让异常逃离析构函数" class="headerlink" title="2.4 条款8：别让异常逃离析构函数"></a>2.4 条款8：别让异常逃离析构函数</h2><p>不要在析构中抛出异常，由于析构函数常常被自动调用，在析构函数中抛出的异常往往会难以捕获，引发程序非正常退出或未定义行为。</p>
+<p>只需为不安全的语句提供一个新的函数，供客户调用和处理异常。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DBConn</span>&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    ~DBConn&#123;</div><div class="line">        <span class="keyword">if</span>(!closed)&#123;</div><div class="line">            <span class="keyword">try</span>&#123;</div><div class="line">                db.close(); <span class="comment">// 假设这里发生异常</span></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span>(...)&#123;</div><div class="line">              <span class="built_in">cerr</span>&lt;&lt;<span class="string">"数据库关闭失败"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">              <span class="comment">// 吞掉异常，或者直接退出程序，但是客户也无法得知发生什么异常</span></div><div class="line">                <span class="comment">// std::abort();</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>&#123;   <span class="comment">// 提供一个新的close函数，供客户调用和处理异常</span></div><div class="line">        db.close();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    DBConnection db;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>##2.5 条款9：不要在构造函数和析构函数中调用虚函数</p>
+<ul>
+<li><p>在构造函数中，调用构造函数的顺序是基类-&gt;子类，当基类在构造的时候，子类的部分还没有开始构造，这时候，如果调用虚函数，只会调用基类版本的，不符合虚函数的语义。</p>
+</li>
+<li><p>在析构函数中，调用析构函数的顺序是子类-&gt;基类，当基类在析构的时候，子类的部分已经析构完成，这时候，如果调用虚函数，同样只会调用基类版本的，不符合虚函数的语义。</p>
+</li>
+</ul>
+<h2 id="2-6-条款10：令operator-返回一直refrence-to-this"><a href="#2-6-条款10：令operator-返回一直refrence-to-this" class="headerlink" title="2.6 条款10：令operator=返回一直refrence to *this"></a>2.6 条款10：令operator=返回一直refrence to *this</h2><p>用来支持链式的赋值语句：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> x, y, z;</div><div class="line">x = y = z = <span class="number">1</span>;</div></pre></td></tr></table></figure></p>
+<p>同理，operator+=等也应该返回refrence to *this</p>
+<h2 id="2-7-条款11：在operator-中处理“自我赋值”"><a href="#2-7-条款11：在operator-中处理“自我赋值”" class="headerlink" title="2.7 条款11：在operator=中处理“自我赋值”"></a>2.7 条款11：在operator=中处理“自我赋值”</h2><p>考虑到<strong>自赋值安全</strong>和<strong>异常安全</strong>。一个更加通用的技术便是复制和交换（copy and swap）</p>
+<p>copy and swap策略: <a href="https://www.bbsmax.com/A/x9J2o4nN56/" target="_blank" rel="external">https://www.bbsmax.com/A/x9J2o4nN56/</a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">String</span>&#123;</span></div><div class="line">    <span class="keyword">char</span> * str;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    String&amp; String::<span class="keyword">operator</span>=(String rhs)&#123;  <span class="comment">// 传值而不是传引用</span></div><div class="line">        swap(rhs);                <span class="comment">// swap *this's data with</span></div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;             <span class="comment">// the copy's</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(String &amp; s)</span> <span class="title">throw</span><span class="params">()</span> <span class="comment">// Non-throwing swap的实现</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">std</span>::swap(<span class="keyword">this</span>-&gt;str, s.str);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="2-8-条款12：复制对象时勿忘其每一个成分"><a href="#2-8-条款12：复制对象时勿忘其每一个成分" class="headerlink" title="2.8 条款12：复制对象时勿忘其每一个成分"></a>2.8 条款12：复制对象时勿忘其每一个成分</h2><p>实现拷贝函数时：</p>
+<ul>
+<li>完整复制当前对象的数据（local data）</li>
+<li>调用所有父类中对应的拷贝函数</li>
+</ul>
+<p>不要让复制构造函数和赋值运算符相互调用，它们的语义完全不同。若不想代码重复，可以抽象到一个普通的方法中，比如init()。</p>
+<h1 id="3-资源管理"><a href="#3-资源管理" class="headerlink" title="3. 资源管理"></a>3. 资源管理</h1><h2 id="3-1-条款13：使用对象来管理资源"><a href="#3-1-条款13：使用对象来管理资源" class="headerlink" title="3.1 条款13：使用对象来管理资源"></a>3.1 条款13：使用对象来管理资源</h2><p>比如以下代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">function</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">  Widget *w = <span class="keyword">new</span> Widget();</div><div class="line">  <span class="keyword">if</span> (xxx)</div><div class="line">  &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">delete</span> w;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>function 在退出时，需要手动释放 w 的资源，很难避免某些时候忘记释放。</p>
+<p>可以使用 RAII ( Resource Acquisition Is Initialization ) —— 资源获取即是初始化，简单的说：</p>
+<ul>
+<li>在构造时获取资源</li>
+<li>在析构时释放资源</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Resource</span>&#123;</span>&#125;;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RAII</span>&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    RAII():r_(<span class="keyword">new</span> Resource)&#123;&#125; <span class="comment">//获取资源</span></div><div class="line">    ~RAII() &#123;<span class="keyword">delete</span> r_;&#125; <span class="comment">//释放资源</span></div><div class="line">    <span class="function">Resource* <span class="title">get</span><span class="params">()</span>    </span>&#123;<span class="keyword">return</span> r_ ;&#125; <span class="comment">//访问资源</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    Resource* r_;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>或者使用智能指针，无需手动管理资源，std::shared_ptr 本质也是一个RAII。</p>
+<h2 id="3-2-条款14：资源管理类要特别注意拷贝行为"><a href="#3-2-条款14：资源管理类要特别注意拷贝行为" class="headerlink" title="3.2 条款14：资源管理类要特别注意拷贝行为"></a>3.2 条款14：资源管理类要特别注意拷贝行为</h2><p>使用 RAII 时，要特别注意 RAII 对象的拷贝行为，比如一个 RAII 的互斥锁：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class Lock &#123;</div><div class="line">public:</div><div class="line">    explicit Lock(Mutex *pm):mutexPtr(pm)&#123;</div><div class="line">        lock(mutexPtr);</div><div class="line">    &#125;</div><div class="line">    ~Lock()&#123; unlock(mutexPtr); &#125;</div><div class="line">private:</div><div class="line">    Mutex *mutexPtr;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>该互斥锁的使用方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Mutex m;            <span class="comment">// 定义互斥锁</span></div><div class="line">&#123;                   <span class="comment">// 创建代码块，来定义一个临界区</span></div><div class="line">    <span class="function">Lock <span class="title">m1</span><span class="params">(&amp;m)</span></span>;    <span class="comment">// 互斥锁加锁</span></div><div class="line">    ...             <span class="comment">// 临界区操作</span></div><div class="line">&#125;                   <span class="comment">// m1退出作用域时被析构，互斥锁自动解锁</span></div></pre></td></tr></table></figure>
+<p>当 m1 被拷贝时，可能会发生死锁的情况，此时应当禁用 Lock 类的拷贝行为，详细参考条款6。</p>
+<h2 id="3-3-条款15：资源管理类需要提供对原始资源的访问"><a href="#3-3-条款15：资源管理类需要提供对原始资源的访问" class="headerlink" title="3.3 条款15：资源管理类需要提供对原始资源的访问"></a>3.3 条款15：资源管理类需要提供对原始资源的访问</h2><p>可参考 std::shared_ptr 的实现中，提供的 get() 方法，用于访问原始指针。同时也提供了operator-&gt;、operator*，让智能指针的表现与直接使用原始指针是一样的。</p>
+<h2 id="3-4-条款16：-使用new和delete时采取相同形式"><a href="#3-4-条款16：-使用new和delete时采取相同形式" class="headerlink" title="3.4 条款16： 使用new和delete时采取相同形式"></a>3.4 条款16： 使用new和delete时采取相同形式</h2><p>一句话：当你使用 new 来申请内存时，要使用 delete 来释放内存，当你使用 new[] 来申请内存时，要使用 delete[] 来释放内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span>* p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>]&#123;<span class="number">11</span>, <span class="number">22</span>&#125;;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%d, %d"</span>, *p, *(p+<span class="number">1</span>));</div><div class="line"><span class="keyword">delete</span>[] p;</div></pre></td></tr></table></figure>
+<h2 id="3-5-条款17：在单独的语句中将new的对象放入智能指针"><a href="#3-5-条款17：在单独的语句中将new的对象放入智能指针" class="headerlink" title="3.5 条款17：在单独的语句中将new的对象放入智能指针"></a>3.5 条款17：在单独的语句中将new的对象放入智能指针</h2><p>考虑以下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">processWidget(<span class="built_in">shared_ptr</span>&lt;Widget&gt;(<span class="keyword">new</span> Widget), priority());</div></pre></td></tr></table></figure>
+<p>以上代码包含三个过程：</p>
+<blockquote>
+<ol>
+<li>执行 new Widget</li>
+<li>调用 priority()</li>
+<li>构造对象 shared_ptr<widget>()</widget></li>
+</ol>
+</blockquote>
+<p>由于 c++ 编译器的不同，函数参数的调用顺序是不确定的。<br>若此函数的调用顺序如上述一致，并且在 2 中发生了异常，那么 1 中 new 的对象还没有加入到 shared_ptr 中，会发生内存泄漏。</p>
+<p>正确做法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Widget&gt; pWidget(<span class="keyword">new</span> Widget);</div><div class="line">processWidget(pWidget, priority());</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/05/Git SSH 配置/" rel="next" title="Git SSH 配置">
+                <i class="fa fa-chevron-left"></i> Git SSH 配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/19/Effective-C-学习笔记/" rel="prev" title="Effective C++学习笔记">
+                Effective C++学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/image/avatar.jpg"
+               alt="Deepin" />
+          <p class="site-author-name" itemprop="name">Deepin</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-基础部分"><span class="nav-number">1.</span> <span class="nav-text">1. 基础部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-条款1：-视C-为一个语言联邦"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 条款1： 视C++为一个语言联邦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-条款2：尽量以const、enum、inline替换define"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 条款2：尽量以const、enum、inline替换define</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-条款3：尽可能使用const"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 条款3：尽可能使用const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-条款4：确定对象被使用前已被初始化"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 条款4：确定对象被使用前已被初始化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-构造-析构-赋值运算"><span class="nav-number">2.</span> <span class="nav-text">2. 构造/析构/赋值运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-条款5：了解C-默默编写并调用哪些函数"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 条款5：了解C++默默编写并调用哪些函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-条款6：若不想使用编译器自动生成的函数，就该明确拒绝"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 条款6：若不想使用编译器自动生成的函数，就该明确拒绝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-条款7：为多态基类声明virtual析构函数"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 条款7：为多态基类声明virtual析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-条款8：别让异常逃离析构函数"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 条款8：别让异常逃离析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-条款10：令operator-返回一直refrence-to-this"><span class="nav-number">2.5.</span> <span class="nav-text">2.6 条款10：令operator=返回一直refrence to *this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-条款11：在operator-中处理“自我赋值”"><span class="nav-number">2.6.</span> <span class="nav-text">2.7 条款11：在operator=中处理“自我赋值”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-条款12：复制对象时勿忘其每一个成分"><span class="nav-number">2.7.</span> <span class="nav-text">2.8 条款12：复制对象时勿忘其每一个成分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-资源管理"><span class="nav-number">3.</span> <span class="nav-text">3. 资源管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-条款13：使用对象来管理资源"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 条款13：使用对象来管理资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-条款14：资源管理类要特别注意拷贝行为"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 条款14：资源管理类要特别注意拷贝行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-条款15：资源管理类需要提供对原始资源的访问"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 条款15：资源管理类需要提供对原始资源的访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-条款16：-使用new和delete时采取相同形式"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 条款16： 使用new和delete时采取相同形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-条款17：在单独的语句中将new的对象放入智能指针"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 条款17：在单独的语句中将new的对象放入智能指针</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Deepin</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
